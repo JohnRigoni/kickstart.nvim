@@ -253,6 +253,17 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
+  {
+    'Exafunction/codeium.vim',
+    event = 'BufEnter',
+    config = function ()
+      vim.keymap.set('i', '<M-q>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+      vim.keymap.set('i', '<S-Tab>', function () return vim.fn['codeium#AcceptWord']() end, { expr = true, silent = true })
+      vim.keymap.set('i', '<M-Tab>', function () return vim.fn['codeium#AcceptLine']() end, { expr = true, silent = true })
+
+    end
+  },
+
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
@@ -671,6 +682,25 @@ vim.api.nvim_set_keymap('x', '<A-/>', 'yb/<C-r>"<CR>', { noremap = false, silent
 vim.cmd [[
   command! -nargs=0 MyGitDiff :term mygitdiff 
 ]]
+
+vim.filetype.add({
+    extension = {
+        templ = "templ",
+    },
+})
+
+vim.g.codeium_no_map_tab = true
+vim.g.codeium_filetypes_disabled_by_default = true
+vim.g.codeium_filetypes = {
+  rust = true,
+  python = true,
+  go = true,
+  javascript = true,
+  typescript = true,
+  bash = true,
+  templ = true,
+  lua = true,
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
