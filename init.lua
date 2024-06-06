@@ -245,6 +245,13 @@ require('lazy').setup({
   },
 
   {
+  'stevearc/oil.nvim',
+  opts = {},
+  -- Optional dependencies
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+  },
+
+  {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
     dependencies = {
