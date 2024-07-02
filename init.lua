@@ -674,6 +674,8 @@ vim.api.nvim_set_keymap('n', '<A-k>', '10k', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-h>', '10h', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('n', '<A-l>', '10l', { noremap = true, silent = true })
 vim.api.nvim_set_keymap('x', '<A-/>', 'yb/<C-r>"<CR>', { noremap = false, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>E', ':lua vim.diagnostic.config({virtual_text=false}) <CR>', { noremap = true, silent = true })
+
 
 vim.cmd [[
   command! -nargs=0 MyGitDiff :term mygitdiff 
