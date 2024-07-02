@@ -702,5 +702,7 @@ if os.getenv("SSH_TTY") then
   }
 end
 
+vim.o.helpheight=9999
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
