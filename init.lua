@@ -260,17 +260,6 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
-  {
-    'Exafunction/codeium.vim',
-    event = 'BufEnter',
-    config = function ()
-      vim.keymap.set('i', '<M-q>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
-      vim.keymap.set('i', '<S-Tab>', function () return vim.fn['codeium#AcceptWord']() end, { expr = true, silent = true })
-      vim.keymap.set('i', '<M-Tab>', function () return vim.fn['codeium#AcceptLine']() end, { expr = true, silent = true })
-
-    end
-  },
-
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
