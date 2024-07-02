@@ -688,19 +688,6 @@ vim.filetype.add({
     },
 })
 
-vim.g.codeium_no_map_tab = true
-vim.g.codeium_filetypes_disabled_by_default = true
-vim.g.codeium_filetypes = {
-  rust = true,
-  python = true,
-  go = true,
-  javascript = true,
-  typescript = true,
-  bash = true,
-  templ = true,
-  lua = true,
-}
-
 if os.getenv("SSH_TTY") then
   vim.g.clipboard = {
     name = 'OSC 52',
