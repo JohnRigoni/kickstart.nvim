@@ -679,6 +679,7 @@ vim.api.nvim_set_keymap('n', '<Leader>E', ':lua vim.diagnostic.config({virtual_t
 
 vim.cmd [[
   command! -nargs=0 MyGitDiff :term mygitdiff 
+  command! -nargs=0 MyGitDiffc :term mygitdiff --cached
 ]]
 
 vim.filetype.add({
