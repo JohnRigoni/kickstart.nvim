@@ -711,6 +711,30 @@ require'lspconfig'.typst_lsp.setup{
         -- serverPath = "" -- Normally, there is no need to uncomment it.
 	}
 }
---
+
+require("oil").setup({
+  skip_confirm_for_simple_edits = true,
+  buf_options = {
+    buflisted = true,
+    -- bufhidden = "hide",
+  },
+  view_options = {
+    show_hidden = true,
+  },
+})
+
+local function oil_preview()
+  require('oil.util').run_after_load(0, function()
+    require('oil').open_preview { vertical = true, split = 'botright' }
+  end)
+end
+
+oil_preview()
+
+vim.keymap.set('n', '<leader>o', function ()
+  require('oil').open()
+  oil_preview()
+end, { desc = 'Open oil in CWD' })
+
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
