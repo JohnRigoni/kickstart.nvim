@@ -685,6 +685,7 @@ vim.cmd [[
 vim.filetype.add({
     extension = {
         templ = "templ",
+        typst = "typ",
     },
 })
 
@@ -704,5 +705,12 @@ end
 
 vim.o.helpheight=9999
 
+require'lspconfig'.typst_lsp.setup{
+	settings = {
+		exportPdf = "onSave" -- Choose onType, onSave or never.
+        -- serverPath = "" -- Normally, there is no need to uncomment it.
+	}
+}
+--
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
