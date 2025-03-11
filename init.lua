@@ -251,6 +251,8 @@ require('lazy').setup({
   dependencies = { "nvim-tree/nvim-web-devicons" },
   },
 
+  -- { 'subnut/nvim-ghost.nvim'},
+
   {
     -- Highlight, edit, and navigate code
     'nvim-treesitter/nvim-treesitter',
@@ -429,7 +431,7 @@ vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = 
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash' },
+    ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'bash', 'php', 'html' },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
     auto_install = false,
@@ -576,17 +578,17 @@ require('mason-lspconfig').setup()
 local servers = {
 
   clangd = {},
+  omnisharp = {},
   docker_compose_language_service = {},
   dockerls = {},
   gopls = {},
   htmx = {},
   jqls = {},
-  pyright = {},
+  pylsp = {},
   rust_analyzer = {},
   sqlls = {},
   templ = {},
   ts_ls = {},
-  typst_lsp = {},
 
   html = { filetypes = { 'html', 'twig', 'hbs'} },
 
@@ -718,13 +720,13 @@ if os.getenv("SSH_TTY") then
 end
 
 vim.o.helpheight=9999
-
-require'lspconfig'.typst_lsp.setup{
-	settings = {
-		exportPdf = "onSave" -- Choose onType, onSave or never.
-        -- serverPath = "" -- Normally, there is no need to uncomment it.
-	}
-}
+--
+-- require'lspconfig'.typst_lsp.setup{
+-- 	settings = {
+-- 		exportPdf = "onSave" -- Choose onType, onSave or never.
+--         -- serverPath = "" -- Normally, there is no need to uncomment it.
+-- 	}
+-- }
 
 require("oil").setup({
   skip_confirm_for_simple_edits = true,
@@ -749,6 +751,51 @@ vim.keymap.set('n', '<leader>o', function ()
   require('oil').open()
   oil_preview()
 end, { desc = 'Open oil in CWD' })
+
+
+vim.opt.wildmode = "longest,list"
+
+local function delete_previous_word()
+    vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes('<C-w>', true, false, true),
+        'i', true)
+end
+
+local function delete_next_word()
+    vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes('<C-o>dw', true, false, true),
+        'i', true)
+end
+
+local function paste_last_yank()
+    vim.cmd('normal! "0p')
+end
+
+local function select_all()
+    vim.api.nvim_feedkeys(
+        vim.api.nvim_replace_termcodes('G$vgg0', true, false, true),
+        'n', true)
+end
+
+-- Modern keymap syntax using vim.keymap.set
+vim.keymap.set('i', '<C-BS>', delete_previous_word, { desc = 'Delete previous word' })
+vim.keymap.set('i', '<C-Del>', delete_next_word, { desc = 'Delete next word' })
+vim.keymap.set({'n', 'v'}, '<Leader>p', paste_last_yank, { desc = 'Paste last yank' })
+vim.keymap.set({'n'}, '<Leader><C-a>', select_all, { desc = 'Select all' })
+
+require('lspconfig').pylsp.setup{
+  settings = {
+    pylsp = {
+      plugins = {
+        pycodestyle = { enabled = false },
+        pyflakes = { enabled = false },
+        pylint = { enabled = false },
+        flake8 = { enabled = false },
+        mccabe = { enabled = false },
+      }
+    }
+  }
+}
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
